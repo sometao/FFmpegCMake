@@ -1,0 +1,77 @@
+﻿# CMakeList.txt : CMake project for FFmpegCMake, include source and define
+# project specific logic here.
+#
+cmake_minimum_required (VERSION 3.8)
+
+project ("FFmpegCMake")
+
+# Add source to this project's executable.
+add_executable (FFmpegCMake "FFmpegCMake.cpp" "FFmpegCMake.h")
+
+
+#--------------------------------------------------------------------------
+
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_FLAGS "-D__STDC_CONSTANT_MACROS")
+
+
+
+
+message("hello")
+
+message(PROJECT_SOURCE_DIR=${PROJECT_SOURCE_DIR})
+message("--------------------")
+message(AVCODEC_INCLUDE_DIR=${AVCODEC_INCLUDE_DIR})
+message(AVCODEC_LIBRARY=${AVCODEC_LIBRARY})
+
+message("--------------------")
+message(AVFORMAT_INCLUDE_DIR=${AVFORMAT_INCLUDE_DIR})
+message(AVFORMAT_LIBRARY=${AVFORMAT_LIBRARY})
+
+
+target_include_directories( FFmpegCMake
+	PRIVATE
+		${PROJECT_SOURCE_DIR}/include
+)
+
+target_link_libraries( FFmpegCMake 
+	PRIVATE 
+		${PROJECT_SOURCE_DIR}/lib/avcodec.lib
+		${PROJECT_SOURCE_DIR}/lib/avformat.lib
+		${PROJECT_SOURCE_DIR}/lib/avutil.lib
+		${PROJECT_SOURCE_DIR}/lib/avdevice.lib
+)
+
+
+add_custom_command(TARGET FFmpegCMake POST_BUILD 
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${PROJECT_SOURCE_DIR}/dll/"              
+        $<TARGET_FILE_DIR:FFmpegCMake>)
+
+#add_custom_command(TARGET FFmpegCMake POST_BUILD 
+#        COMMAND ${CMAKE_COMMAND} -E copy_if_different 
+#			"${PROJECT_SOURCE_DIR}/dll/avcodec-58.dll"
+#			$<TARGET_FILE_DIR:FFmpegCMake>
+#        COMMAND ${CMAKE_COMMAND} -E copy_if_different 
+#			"${PROJECT_SOURCE_DIR}/dll/avdevice-58.dll"
+#			$<TARGET_FILE_DIR:FFmpegCMake>
+#        COMMAND ${CMAKE_COMMAND} -E copy_if_different 
+#			"${PROJECT_SOURCE_DIR}/dll/avfilter-7.dll"
+#			$<TARGET_FILE_DIR:FFmpegCMake>
+#        COMMAND ${CMAKE_COMMAND} -E copy_if_different 
+#			"${PROJECT_SOURCE_DIR}/dll/avformat-58.dll"
+#			$<TARGET_FILE_DIR:FFmpegCMake>
+#        COMMAND ${CMAKE_COMMAND} -E copy_if_different 
+#			"${PROJECT_SOURCE_DIR}/dll/avutil-56.dll"
+#			$<TARGET_FILE_DIR:FFmpegCMake>
+#        COMMAND ${CMAKE_COMMAND} -E copy_if_different 
+#			"${PROJECT_SOURCE_DIR}/dll/postproc-55.dll"
+#			$<TARGET_FILE_DIR:FFmpegCMake>
+#        COMMAND ${CMAKE_COMMAND} -E copy_if_different 
+#			"${PROJECT_SOURCE_DIR}/dll/swresample-3.dll"
+#			$<TARGET_FILE_DIR:FFmpegCMake>
+#        COMMAND ${CMAKE_COMMAND} -E copy_if_different 
+#			"${PROJECT_SOURCE_DIR}/dll/swscale-5.dll"
+#			$<TARGET_FILE_DIR:FFmpegCMake>
+#)

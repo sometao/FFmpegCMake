@@ -1,0 +1,55 @@
+﻿# CMakeList.txt : CMake project for FFmpegCMake, include source and define
+# project specific logic here.
+#
+cmake_minimum_required (VERSION 3.8)
+
+project ("FFmpegCMake")
+
+# Add source to this project's executable.
+add_executable (FFmpegCMake "FFmpegCMake.cpp" "FFmpegCMake.h")
+
+
+#--------------------------------------------------------------------------
+
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_FLAGS "-D__STDC_CONSTANT_MACROS")
+
+
+
+
+message("hello")
+
+
+target_include_directories( FFmpegCMake
+	PRIVATE
+		${PROJECT_SOURCE_DIR}/include
+)
+
+
+find_library(AVCODEC_LIBRARY  avcodec  PATHS ${PROJECT_SOURCE_DIR}/lib NO_DEFAULT_PATH )
+find_library(AVFORMAT_LIBRARY avformat PATHS ${PROJECT_SOURCE_DIR}/lib NO_DEFAULT_PATH )
+find_library(AVUTIL_LIBRARY   avutil   PATHS ${PROJECT_SOURCE_DIR}/lib NO_DEFAULT_PATH )
+find_library(AVDEVICE_LIBRARY avdevice PATHS ${PROJECT_SOURCE_DIR}/lib NO_DEFAULT_PATH )
+
+message(--------------------------------- hello ---------------------------------)
+message(AVCODEC_LIBRARY  =  ${AVCODEC_LIBRARY})
+message(AVFORMAT_LIBRARY =  ${AVFORMAT_LIBRARY})
+message(AVUTIL_LIBRARY   =  ${AVUTIL_LIBRARY})
+message(AVDEVICE_LIBRARY =  ${AVDEVICE_LIBRARY})
+
+
+target_link_libraries( FFmpegCMake 
+	PRIVATE 
+		${AVCODEC_LIBRARY} 	#音视频编码核心库 , 用于音视频或图片编解码
+		${AVFORMAT_LIBRARY}	#硬件采集 , 加速 , 显示 库
+		${AVUTIL_LIBRARY}	#音视频滤波器
+		${AVDEVICE_LIBRARY}	#音视频封装格式生成或解析 
+)
+
+
+add_custom_command(TARGET FFmpegCMake POST_BUILD 
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${PROJECT_SOURCE_DIR}/dll/"              
+        $<TARGET_FILE_DIR:FFmpegCMake>)
+

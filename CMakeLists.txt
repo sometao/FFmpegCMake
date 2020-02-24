@@ -96,6 +96,7 @@ add_executable (FFmpegCMake
 	src/learnFromLXH/HelloFFmpeg.cpp
 	src/learnFromLXH/HelloDecoder.cpp
 	src/learnFromLXH/HelloDecoderPure.cpp
+	src/learnFromLXH/HelloPlayerSDL2.cpp
 	src/FFmpegCMake.cpp
 	src/TmpTest.cpp
 )

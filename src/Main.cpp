@@ -9,6 +9,10 @@ namespace decoder {
 extern int launch();
 }
 
+namespace player_sdl2 {
+extern int launch();
+}
+
 
 
 }  // namespace lxh
@@ -22,8 +26,8 @@ namespace tmpTest {
 
 int main(int argc, char* argv[]) { 
 
-  //lxh::decoder::launch();
-  tmpTest::run();
+  lxh::player_sdl2::launch();
+  //tmpTest::run();
   return 0; 
 
 }

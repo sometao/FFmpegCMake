@@ -16,7 +16,7 @@ IF(MSVC)
 ENDIF(MSVC)
 
 ######################################
-#  FFmpeg lib seting
+#  FFmpeg lib setting
 ######################################
 #make sure ffmpeg/bin is in your PATH.
 
@@ -45,9 +45,17 @@ find_path(SWSCALE_INCLUDE_DIR libswscale/swscale.h)
 find_library(SWSCALE_LIBRARY swscale)
 
 
+######################################
+#  SDL2 lib setting
+######################################
+#make sure SDL2.dll is in your PATH.
+
+set(SDL_INCLUDE_DIR "C:/tools/SDL2-2.0.10/include")
+set(SDL_LIBRARY "C:/tools/SDL2-2.0.10/lib/x64/SDL2.lib")
+
 
 ######################################
-#  informatation
+#  information
 ######################################
 
 message(CMAKE_SOURCE_DIR=${CMAKE_SOURCE_DIR})
@@ -84,8 +92,12 @@ message(SWSCALE_LIBRARY=${SWSCALE_LIBRARY})
 # Add source to this project's executable.
 ############################################
 add_executable (FFmpegCMake 
-	src/HelloFFmpeg.cpp
+	src/Main.cpp
+	src/learnFromLXH/HelloFFmpeg.cpp
+	src/learnFromLXH/HelloDecoder.cpp
+	src/learnFromLXH/HelloDecoderPure.cpp
 	src/FFmpegCMake.cpp
+	src/TmpTest.cpp
 )
 
 
@@ -100,6 +112,7 @@ target_include_directories( FFmpegCMake
 		${POSTPROC_INCLUDE_DIR}
 		${SWRESAMPLE_INCLUDE_DIR}
 		${SWSCALE_INCLUDE_DIR}
+		${SDL_INCLUDE_DIR}
 )
 
 target_link_libraries( FFmpegCMake 
@@ -112,6 +125,7 @@ target_link_libraries( FFmpegCMake
 		${POSTPROC_LIBRARY}
 		${SWRESAMPLE_LIBRARY}
 		${SWSCALE_LIBRARY}
+		${SDL_LIBRARY}
 )
 
 

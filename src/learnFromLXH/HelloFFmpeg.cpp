@@ -28,10 +28,14 @@ extern "C" {
 #include <memory>
 #include <sstream>
 #include <string>
+
 using std::cout;
 using std::endl;
 using std::string;
 using std::stringstream;
+
+namespace lxh {
+namespace hello {
 
 /**
  * Configuration Information
@@ -104,7 +108,6 @@ const string avformatinfo() {
  * AVCodec Support Information
  */
 auto avcodecinfo() {
-
   stringstream infoStream{};
 
   av_register_all();
@@ -133,32 +136,32 @@ auto avcodecinfo() {
         break;
     }
 
-    infoStream << codeDirection << codeType << ":" << c_temp->name << endl;;
+    infoStream << codeDirection << codeType << ":" << c_temp->name << endl;
+    ;
 
     c_temp = c_temp->next;
   }
   return infoStream.str();
 }
 
-
 /**
  * AVFilter Support Information
  */
-auto avfilterinfo()
-{
+auto avfilterinfo() {
   stringstream infoStream{};
   avfilter_register_all();
 
   AVFilter* f_temp = (AVFilter*)avfilter_next(NULL);
 
   while (f_temp != NULL) {
-    infoStream << "[Filter]: " << f_temp->name << endl;;
+    infoStream << "[Filter]: " << f_temp->name << endl;
+    ;
     f_temp = f_temp->next;
   }
   return infoStream.str();
 }
 
-int main(int argc, char* argv[]) {
+int launch() {
   char* infostr = NULL;
 
   cout << "Hello FFmpeg" << endl;
@@ -179,10 +182,13 @@ int main(int argc, char* argv[]) {
   cout << "<<AVCodec>>" << endl;
   cout << avCodes << endl;
 
-
   auto filterInfo = avfilterinfo();
   cout << "<<AVFilter>>" << endl;
   cout << filterInfo << endl;
 
   return 0;
 }
+
+}  // namespace hello
+
+}  // namespace lxh

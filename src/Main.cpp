@@ -26,6 +26,8 @@ namespace tmpTest {
 
 int main(int argc, char* argv[]) { 
 
+  std::cout << "hello, ffmpeg." << std::endl;
+
   lxh::player_sdl2::launch();
   //tmpTest::run();
   return 0; 

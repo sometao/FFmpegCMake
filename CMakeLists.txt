@@ -99,6 +99,10 @@ add_executable (FFmpegCMake
 	src/learnFromLXH/HelloPlayerSDL2.cpp
 	src/FFmpegCMake.cpp
 	src/TmpTest.cpp
+	#src/fftools/ffplay.c
+	#src/fftools/cmdutils.c
+	src/rambodrahmani/tutorial02.c
+	src/rambodrahmani/tutorial03-resampled.c
 )
 
 
